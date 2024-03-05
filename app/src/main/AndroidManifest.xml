@@ -13,9 +13,11 @@
         android:theme="@style/Theme.Fruitseason"
         tools:targetApi="31">
         <activity
+            android:name=".SeasonalFruits"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".Registration"
             android:exported="true">
@@ -27,12 +29,11 @@
         </activity>
         <activity
             android:name=".FruitsSale"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".FruitInfo"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
