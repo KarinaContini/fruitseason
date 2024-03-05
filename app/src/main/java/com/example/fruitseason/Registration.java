@@ -12,7 +12,7 @@ public class Registration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registration);
+        setContentView(R.layout.activity_registration);
         buttonReg = findViewById(R.id.btnRegister);
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
