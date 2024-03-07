@@ -62,7 +62,7 @@
         android:layout_marginTop="180dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_medium"
-        android:text="ADD"
+        android:text="add"
         android:textColor="@color/orange"
         app:cornerRadius="8dp" />
 
