@@ -8,7 +8,7 @@
     android:gravity="center"
     android:padding="20dp"
     android:layout_width="match_parent"
-    android:background="@color/orange">
+    android:background="@drawable/orange_background">
 
 
     <ImageView
@@ -23,16 +23,16 @@
         android:id="@+id/signout"
         android:backgroundTint="@color/white"
         android:layout_width="match_parent"
-        android:textColor="@color/black"
+        android:textColor="@color/orange"
         android:layout_height="wrap_content"
         android:text="SEARCH FRUIT"/>
 
     <Button
         android:layout_marginTop="20dp"
         android:id="@+id/delete"
-        android:backgroundTint="@color/white"
+        android:background="@color/almostTransparentGrey"
         android:layout_width="match_parent"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="SELLER'S AREA"/>
 
