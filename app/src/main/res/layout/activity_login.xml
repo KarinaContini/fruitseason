@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/semiTransparentWhite"
-        android:text="Create an account here"/>
+        android:text="Create an account"/>
 
 
 </LinearLayout>
