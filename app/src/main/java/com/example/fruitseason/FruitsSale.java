@@ -6,18 +6,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.SearchView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FruitsSale extends AppCompatActivity {
     ListView listView;
 
+    SearchView searchFruits;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fruit_sale);
+        setContentView(R.layout.activity_fruit_sale);
         listView = findViewById(R.id.listv);
+        searchFruits = findViewById(R.id.searchView);
         String[] fruits = {"Pineapple", "Banana", "Strawberry"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.fruits_list_sale, R.id.txtFruits, fruits);
         listView.setAdapter(adapter);
