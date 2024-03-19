@@ -11,7 +11,7 @@ public class FruitInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fruit_info);
+        setContentView(R.layout.activity_fruit_info);
         textView = findViewById(R.id.txtFruit);
         Intent intent = getIntent();
         String fruit = intent.getStringExtra("fruit");
