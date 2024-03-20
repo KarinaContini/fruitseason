@@ -21,15 +21,21 @@
         android:layout_width="300dp"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity ="center_horizontal"
         android:background="@android:color/white" />
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
         android:layout_gravity ="center_horizontal"
-        android:="@android:color/white"
-        />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:searchIcon="@drawable/search_icon"
+        android:closeIcon="@drawable/close_icon"
+        android:queryHint="Search fruit"
+        android:textColorHint="@color/white"/>
     <ListView
         android:id="@+id/listv"
         android:layout_width="wrap_content"
