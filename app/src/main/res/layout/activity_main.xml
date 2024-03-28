@@ -18,8 +18,8 @@
         android:src="@drawable/logo"/>
 
     <Button
+        android:id="@+id/searchFruit"
         android:layout_marginTop="20dp"
-        android:id="@+id/signout"
         android:backgroundTint="@color/white"
         android:layout_width="match_parent"
         android:textColor="@color/orange"
@@ -27,8 +27,8 @@
         android:text="SEARCH FRUIT"/>
 
     <Button
+        android:id="@+id/sellerArea"
         android:layout_marginTop="20dp"
-        android:id="@+id/delete"
         android:background="@color/almostTransparentGrey"
         android:layout_width="match_parent"
         android:textColor="@color/white"
