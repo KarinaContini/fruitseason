@@ -16,6 +16,15 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailtxt, passtxt;
     private Button signupbtn, loginbtn;
 
+    /*
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+    }
+    */
+
     public void loginUser() {
         String email = emailtxt.getText().toString().trim();
         String password = passtxt.getText().toString().trim();
