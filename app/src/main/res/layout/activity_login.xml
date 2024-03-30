@@ -20,13 +20,13 @@
 
 
     <EditText
-        android:id="@+id/emaillogin"
+        android:id="@+id/emailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"/>
 
     <EditText
-        android:id="@+id/passwordlogin"
+        android:id="@+id/passwordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
@@ -35,7 +35,7 @@
 
     <Button
         android:layout_marginTop="20dp"
-        android:id="@+id/loginbtn"
+        android:id="@+id/loginButton"
         android:backgroundTint="@color/white"
         android:layout_width="match_parent"
         android:textColor="@color/orange"
@@ -43,7 +43,7 @@
         android:text="LOGIN"/>
 
     <Button
-        android:id="@+id/regbtn"
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
