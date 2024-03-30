@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778438205589",
+    "project_id": "fruitseason-78a21",
+    "storage_bucket": "fruitseason-78a21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778438205589:android:7c90a15a2b8648ea12bb9c",
+        "android_client_info": {
+          "package_name": "com.example.fruitseason"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAynXKNF7-Z0xtw2nXJ5VEnvFs8_mcUavc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
