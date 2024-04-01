@@ -16,12 +16,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Registration extends AppCompatActivity {
 
     private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addresstxt,provincetxt,citytxt, phonetxt;
     private TextView buttonLogin;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     Button buttonReg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class Registration extends AppCompatActivity {
     }
 
     private void registerUser(){
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("users");
         String name  = fullnametxt.getText().toString().trim();
         String email = emailtxt.getText().toString().trim();
         String password = passtxt.getText().toString().trim();
@@ -73,6 +79,22 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(this, "All the fields should be filled!!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailtxt.setError("Please enter a valid email address");
+            emailtxt.requestFocus();
+            return;
+        }
+        if(!Patterns.PHONE.matcher(phone).matches()){
+            phonetxt.setError("Please enter a valid phone number");
+            phonetxt.requestFocus();
+            return;
+        }
+        if(!email.equals(confirmEmail)){
+            confirmEmailtxt.setError("Email and confirmation does not match");
+            confirmEmailtxt.requestFocus();
+            return;
+        }
         if (password.length()<8){
             passtxt.setError("Password should be more than 8 char");
             passtxt.requestFocus();
@@ -84,17 +106,15 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailtxt.setError("Please enter a valid email address");
-            emailtxt.requestFocus();
-            return;
-        }
+
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            Model model = new Model(name, email, password, phone,address,city,province);
+                            reference.child(email).setValue(model);
                             Toast.makeText(Registration.this,
                                     "Registered! ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Registration.this,MainActivity.class);
