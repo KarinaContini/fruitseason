@@ -23,13 +23,31 @@
         android:id="@+id/emailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="15dp"
         android:hint="Email"/>
 
     <EditText
         android:id="@+id/passwordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:inputType="textPassword"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="15dp"
         android:hint="Password"/>
 
 
@@ -40,7 +58,8 @@
         android:layout_width="match_parent"
         android:textColor="@color/orange"
         android:layout_height="wrap_content"
-        android:text="LOGIN"/>
+        android:fontFamily="@font/montserrat"
+        android:text="Login"/>
 
     <Button
         android:id="@+id/registerButton"
@@ -48,6 +67,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/semiTransparentWhite"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
         android:text="Create an account"/>
 
 
