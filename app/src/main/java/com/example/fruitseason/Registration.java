@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Registration extends AppCompatActivity {
 
-    private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addressText,provinceText,cityText;
+    private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addresstxt,provincetxt,citytxt, phonetxt;
+    private TextView buttonLogin;
     private FirebaseAuth mAuth;
     Button buttonReg;
     @Override
@@ -31,15 +33,23 @@ public class Registration extends AppCompatActivity {
         confirmPasstxt = findViewById(R.id.txtConfirmPassword);
         fullnametxt = findViewById(R.id.txtName);
         confirmEmailtxt = findViewById(R.id.txtConfirmEmail);
-        addressText = findViewById(R.id.txtAddress);
-        provinceText = findViewById(R.id.txtProvince);
-        cityText = findViewById(R.id.txtCity);
+        addresstxt = findViewById(R.id.txtAddress);
+        provincetxt = findViewById(R.id.txtProvince);
+        citytxt = findViewById(R.id.txtCity);
+        phonetxt = findViewById(R.id.txtPhone);
+        buttonLogin = findViewById(R.id.btnLogin);
 
         mAuth = FirebaseAuth.getInstance();
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Registration.this, FruitsSale.class);
+                registerUser();
+            }
+        });
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registration.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -50,12 +60,17 @@ public class Registration extends AppCompatActivity {
         String email = emailtxt.getText().toString().trim();
         String password = passtxt.getText().toString().trim();
         String confirmPassword = confirmPasstxt.getText().toString().trim();
-        String age = confirmEmailtxt.getText().toString().trim();
+        String confirmEmail = confirmEmailtxt.getText().toString().trim();
+        String phone = phonetxt.getText().toString().trim();
+        String address = addresstxt.getText().toString().trim();
+        String city = citytxt.getText().toString().trim();
+        String province = provincetxt.getText().toString().trim();
+
 
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-                || age.isEmpty()){
-            Toast.makeText(this, "All the field should be filled!!", Toast.LENGTH_SHORT).show();
+                || confirmEmail.isEmpty() || phone.isEmpty() ||address.isEmpty()||city.isEmpty()||province.isEmpty() ){
+            Toast.makeText(this, "All the fields should be filled!!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (password.length()<8){
@@ -64,13 +79,13 @@ public class Registration extends AppCompatActivity {
             return;
         }
         if(!password.equals(confirmPassword)){
-            confirmPasstxt.setError("Password and confirmation is not match");
+            confirmPasstxt.setError("Password and confirmation does not match");
             confirmPasstxt.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailtxt.setError("Please Put the valid Email address");
+            emailtxt.setError("Please enter a valid email address");
             emailtxt.requestFocus();
             return;
         }
@@ -83,7 +98,6 @@ public class Registration extends AppCompatActivity {
                             Toast.makeText(Registration.this,
                                     "Registered! ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Registration.this,MainActivity.class);
-                            intent.putExtra("name",name);
                             startActivity(intent);
                             finish();
                         }else{
