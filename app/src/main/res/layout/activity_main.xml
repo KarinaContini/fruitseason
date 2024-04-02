@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:textColor="@color/orange"
         android:layout_height="wrap_content"
+        app:cornerRadius="15dp"
         android:text="SEARCH FRUIT"/>
 
     <Button
