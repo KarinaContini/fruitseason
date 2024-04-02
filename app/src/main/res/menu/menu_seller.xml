@@ -2,9 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group>
-    <item android:id="@+id/editProfile"
-        android:title="Edit Profile"/>
+    <group
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/editProfile"
+        android:title="Edit Profile"
+        />
     <item android:id="@+id/myFruits"
         android:title="My fruits"
         />
