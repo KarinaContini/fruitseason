@@ -1,11 +1,10 @@
 package com.example.fruitseason;
 
 public class Model {
-    String name, email, password, phone,address, city, province;
-    public Model(String n, String e, String pass, String ph, String a, String c, String p){
+    String name, email,phone,address, city, province;
+    public Model(String n, String e, String ph, String a, String c, String p){
         name = n;
         email = e;
-        password= pass;
         phone = ph;
         address= a;
         city= c;
@@ -26,9 +25,6 @@ public class Model {
         return address;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getPhone() {
         return phone;
@@ -50,9 +46,6 @@ public class Model {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public void setPhone(String phone) {
         this.phone = phone;
