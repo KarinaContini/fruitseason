@@ -113,7 +113,7 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Model model = new Model(name, email, password, phone,address,city,province);
+                            Model model = new Model(name, email,phone,address,city,province);
                             reference.child(email).setValue(model);
                             Toast.makeText(Registration.this,
                                     "Registered! ", Toast.LENGTH_SHORT).show();
