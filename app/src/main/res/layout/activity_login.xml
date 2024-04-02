@@ -65,11 +65,11 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Create an account"
         android:textColor="@color/white"
-        android:background="@color/semiTransparentWhite"
+        android:background="@drawable/rounded_button"
         android:fontFamily="@font/montserrat"
-        android:layout_marginTop="10dp"
-        android:text="Create an account"/>
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>
