@@ -47,8 +47,8 @@ public class FruitInfo extends AppCompatActivity implements NavigationView.OnNav
 
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
             case R.id.editProfile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditProfileFragment()).commit();
                 break;
