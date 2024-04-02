@@ -29,10 +29,10 @@
     <Button
         android:id="@+id/sellerArea"
         android:layout_marginTop="20dp"
-        android:background="@color/almostTransparentGrey"
         android:layout_width="match_parent"
-        android:textColor="@color/white"
         android:layout_height="wrap_content"
-        android:text="SELLER'S AREA"/>
+        android:text="SELLER'S AREA"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"/>
 
 </LinearLayout>
