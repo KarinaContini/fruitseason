@@ -18,15 +18,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     private EditText loginEmail, loginPassword;
-
 
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         loginEmail = findViewById(R.id.emailLogin);
         loginPassword = findViewById(R.id.passwordLogin);
 
@@ -50,16 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+
     public void loginUser() {
         String email = loginEmail.getText().toString().trim();
         String password = loginPassword.getText().toString().trim();
@@ -75,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this,
                                     "Login successfully! ", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, FruitsSale.class);
                             startActivity(intent);
                             finish();
                         } else {
