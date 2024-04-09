@@ -1,7 +1,7 @@
 package com.example.fruitseason;
 
 public class Model {
-    String name, email,phone,address, city, province;
+    String name,email,phone,address, city, province;
     public Model(String n, String e, String ph, String a, String c, String p){
         name = n;
         email = e;
