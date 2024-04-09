@@ -17,7 +17,7 @@ public class FruitInfo extends AppCompatActivity{
     TextView textView;
     private DrawerLayout drawerLayout;
     private ImageView menu;
-    TextView editProfile;
+    TextView editProfile, logout;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,6 +27,7 @@ public class FruitInfo extends AppCompatActivity{
         drawerLayout = findViewById(R.id.drawer_layout);
 
         editProfile = findViewById(R.id.editProfile);
+        logout = findViewById(R.id.logout);
         menu= findViewById(R.id.menu);
 
         textView = findViewById(R.id.txtFruit);
@@ -43,6 +44,14 @@ public class FruitInfo extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 redirectActivity(FruitInfo.this, PasswordChange.class);
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FruitInfo.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
