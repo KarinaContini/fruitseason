@@ -16,13 +16,13 @@
     android:orientation="vertical"
     android:background="@color/orange">
     <include
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar_seller"/>
     <TextView
         android:id="@+id/txtFruit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/white"
         android:textSize="30dp" />
@@ -76,12 +76,12 @@
         android:textColor="@color/orange"
         app:cornerRadius="8dp" />
 
-</LinearLayout>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start">
     <include
-        layout="@layout/nav_drawer"/>
+        layout="@layout/nav_drawer_seller"/>
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

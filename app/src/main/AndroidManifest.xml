@@ -20,35 +20,37 @@
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
-            android:exported="false"/>
-        <activity
-            android:name=".SeasonalFruits"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Registration"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name=".FruitsSale"
-            android:exported="false" />
-        <activity
-            android:name=".FruitInfo"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        </activity>
+    </activity>
+        <activity
+            android:name=".SeasonalFruits"
+            android:exported="false"/>
+
+
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Registration"
+            android:exported="false"/>
+
+        <activity
+            android:name=".FruitsSale"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".FruitInfo"
+            android:exported="false"/>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -44,6 +44,9 @@ public class Registration extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btnLogin);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("users");
+
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +63,6 @@ public class Registration extends AppCompatActivity {
     }
 
     private void registerUser(){
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("users");
         String name  = fullnametxt.getText().toString().trim();
         String email = emailtxt.getText().toString().trim();
         String password = passtxt.getText().toString().trim();
@@ -73,10 +74,9 @@ public class Registration extends AppCompatActivity {
         String province = provincetxt.getText().toString().trim();
 
 
-
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
                 || confirmEmail.isEmpty() || phone.isEmpty() ||address.isEmpty()||city.isEmpty()||province.isEmpty() ){
-            Toast.makeText(this, "All the fields should be filled!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "All the fields should be filled!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -106,10 +106,9 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-
-
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
@@ -125,6 +124,5 @@ public class Registration extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 }

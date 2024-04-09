@@ -71,5 +71,4 @@
         android:fontFamily="@font/montserrat"
         android:layout_marginTop="20dp" />
 
-
 </LinearLayout>
