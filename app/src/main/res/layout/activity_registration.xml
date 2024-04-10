@@ -133,7 +133,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/montserrat"
-            android:hint="City,Province"
+            android:hint="City"
             android:paddingLeft="10dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
@@ -149,7 +149,7 @@
             android:layout_marginLeft="40dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/montserrat"
-            android:hint="Country"
+            android:hint="Province"
             android:paddingLeft="10dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
@@ -210,7 +210,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat_medium"
+        android:fontFamily="@font/montserrat"
         android:text="Already have an account"
         />
 
