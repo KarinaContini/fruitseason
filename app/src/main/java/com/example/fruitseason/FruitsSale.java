@@ -56,7 +56,7 @@ public class FruitsSale extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(FruitsSale.this, PasswordChange.class);
+                redirectActivity(FruitsSale.this, EditProfile.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
