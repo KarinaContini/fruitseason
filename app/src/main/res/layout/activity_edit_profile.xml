@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/orange">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Edit Profile"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+    <View
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity ="center_horizontal"
+        android:background="@android:color/white" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity ="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/img_placement"/>
+
+    <TextView
+        android:id="@+id/textImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Insert photo"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/montserrat"
+        android:hint="Full name"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="15dp" />
+
+
+    <EditText
+        android:id="@+id/editPhone"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/montserrat"
+        android:hint="Phone Number"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/editAddress"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/montserrat"
+        android:hint="Address"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity ="center_horizontal"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/montserrat"
+            android:hint="City"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/editProvince"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/montserrat"
+            android:hint="Province"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/editProfileButton"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Save"
+        android:textColor="@color/orange"
+        app:cornerRadius="8dp" />
+    <Button
+        android:id="@+id/cancelEditButton"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Cancel"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>
