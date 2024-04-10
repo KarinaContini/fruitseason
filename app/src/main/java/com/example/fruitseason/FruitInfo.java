@@ -43,7 +43,7 @@ public class FruitInfo extends AppCompatActivity{
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(FruitInfo.this, PasswordChange.class);
+                redirectActivity(FruitInfo.this, EditProfile.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
