@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +27,7 @@ public class Registration extends AppCompatActivity {
     private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addresstxt,provincetxt,citytxt, phonetxt;
     private TextView buttonLogin;
     private FirebaseAuth mAuth;
+    private static final String TAG= "Registration";
     FirebaseDatabase database;
     DatabaseReference reference;
     Button buttonReg;
@@ -44,8 +48,7 @@ public class Registration extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btnLogin);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("users");
+
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,16 +115,36 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Model model = new Model(name, email,phone,address,city,province);
-                            reference.child(email).setValue(model);
-                            Toast.makeText(Registration.this,
-                                    "Registered! ", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Registration.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            Model model = new Model(name,phone,address,city,province);
+                            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+                            reference = FirebaseDatabase.getInstance().getReference("users");
+                            reference.child(firebaseUser.getUid()).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                    Toast.makeText(Registration.this,
+                                            "User registered! ", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Registration.this,FruitsSale.class);
+                                    startActivity(intent);
+                                    finish();
+                                    }else{
+                                        Toast.makeText(Registration.this, "Failed registration", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }else{
-                            Toast.makeText(Registration.this, "Failed registration", Toast.LENGTH_SHORT).show();
-                        }
+                            try{
+                                throw task.getException();
+                            }catch(FirebaseAuthUserCollisionException e){
+                                emailtxt.setError("User is already registered with this email.");
+                                emailtxt.requestFocus();
+                            }
+                            catch(Exception e){
+                                Log.e(TAG, e.getMessage());
+                                Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }                        }
                     }
                 });
     }

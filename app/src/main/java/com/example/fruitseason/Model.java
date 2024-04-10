@@ -2,29 +2,20 @@ package com.example.fruitseason;
 
 public class Model {
     String name,email,phone,address, city, province;
-    public Model(String n, String e, String ph, String a, String c, String p){
+    public Model(String n,String ph, String a, String c, String p){
         name = n;
-        email = e;
         phone = ph;
         address= a;
         city= c;
         province= p;
-
     }
-
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-
     public String getAddress() {
         return address;
     }
-
 
     public String getPhone() {
         return phone;
@@ -41,11 +32,6 @@ public class Model {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 
     public void setPhone(String phone) {
         this.phone = phone;
