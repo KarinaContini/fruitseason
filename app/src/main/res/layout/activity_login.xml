@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:textColor="@color/orange"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_medium"
         android:text="Login"/>
 
     <Button
@@ -68,16 +68,16 @@
         android:text="Create an account"
         android:textColor="@color/white"
         android:background="@drawable/rounded_button"
-        android:fontFamily="@font/montserrat"
-        android:layout_marginTop="20dp" />
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="10dp" />
     <TextView
         android:id="@+id/btnForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat_medium"
+        android:fontFamily="@font/montserrat"
         android:text="Forgot Password?"
         />
 </LinearLayout>

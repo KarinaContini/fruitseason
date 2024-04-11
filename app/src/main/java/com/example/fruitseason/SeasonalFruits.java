@@ -31,7 +31,7 @@ public class SeasonalFruits extends AppCompatActivity {
         seasonalFruits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(SeasonalFruits.this, PasswordChange.class);
+                redirectActivity(SeasonalFruits.this, EditProfile.class);
             } //muder nome da classe depois
         });
     }

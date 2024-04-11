@@ -28,7 +28,6 @@ public class Registration extends AppCompatActivity {
     private TextView buttonLogin;
     private FirebaseAuth mAuth;
     private static final String TAG= "Registration";
-    FirebaseDatabase database;
     DatabaseReference reference;
     Button buttonReg;
     @Override
@@ -127,6 +126,11 @@ public class Registration extends AppCompatActivity {
                                     Toast.makeText(Registration.this,
                                             "User registered! ", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Registration.this,FruitsSale.class);
+                                    intent.putExtra("name", name);
+                                    intent.putExtra("phone", phone);
+                                    intent.putExtra("address", address);
+                                    intent.putExtra("city", city);
+                                    intent.putExtra("province", province);
                                     startActivity(intent);
                                     finish();
                                     }else{
@@ -144,7 +148,8 @@ public class Registration extends AppCompatActivity {
                             catch(Exception e){
                                 Log.e(TAG, e.getMessage());
                                 Toast.makeText(Registration.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }                        }
+                            }
+                        }
                     }
                 });
     }

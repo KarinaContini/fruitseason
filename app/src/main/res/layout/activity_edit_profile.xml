@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
+
     android:background="@color/orange">
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="70dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Registration"
+        android:text="Edit Profile"
         android:textColor="@color/white"
         android:textSize="30dp" />
     <View
@@ -41,7 +42,7 @@
         android:textColor="@android:color/white" />
 
     <EditText
-        android:id="@+id/txtName"
+        android:id="@+id/editName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -56,40 +57,9 @@
         android:textColorHint="@color/white"
         android:textSize="15dp" />
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:fontFamily="@font/montserrat"
-        android:hint="E-mail"
-        android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="15dp" />
 
     <EditText
-        android:id="@+id/txtConfirmEmail"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:fontFamily="@font/montserrat"
-        android:hint="Confirm E-mail"
-        android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtPhone"
+        android:id="@+id/editPhone"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -105,7 +75,7 @@
         android:textSize="15dp" />
 
     <EditText
-        android:id="@+id/txtAddress"
+        android:id="@+id/editAddress"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -127,7 +97,7 @@
         android:layout_marginTop="15dp">
 
         <EditText
-            android:id="@+id/txtCity"
+            android:id="@+id/editCity"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -142,7 +112,7 @@
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/txtProvince"
+            android:id="@+id/editProvince"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -158,60 +128,27 @@
             android:textSize="15dp" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:fontFamily="@font/montserrat"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtConfirmPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:fontFamily="@font/montserrat"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="15dp" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/editProfileButton"
         android:layout_width="190dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Register"
+        android:text="Save"
         android:textColor="@color/orange"
         app:cornerRadius="8dp" />
-    <TextView
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+    <Button
+        android:id="@+id/cancelEditButton"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
+        android:text="Cancel"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat"
-        android:text="Already have an account"
-        />
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
