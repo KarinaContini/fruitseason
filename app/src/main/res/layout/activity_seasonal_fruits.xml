@@ -48,11 +48,14 @@
         android:textColorHint="@color/orange"
 
         android:textSize="15dp" />
-    <ListView
-        android:id="@+id/listvSeasonal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFruitsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
 
     </LinearLayout>
     <RelativeLayout

@@ -1,7 +1,11 @@
-package com.example.fruitseason;
+package com.example.fruitseason.model;
 
-public class Model {
-    String name,email,phone,address, city, province;
+import java.io.Serializable;
+
+public class Model implements Serializable {
+    private String name,email,phone,address, city, province;
+    private String image;
+
     public Model(String n,String ph, String a, String c, String p){
         name = n;
         phone = ph;
@@ -9,6 +13,18 @@ public class Model {
         city= c;
         province= p;
     }
+
+    public Model() {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }

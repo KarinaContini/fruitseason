@@ -32,12 +32,15 @@
         android:layout_marginTop="5dp"
         android:layout_gravity ="center_horizontal"
         android:background="@android:color/white" />
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity ="center_horizontal"
+        android:id="@+id/imgFruit"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:src="@drawable/pineapple"/>
+        android:src="@drawable/img_placement" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,18 +64,19 @@
             android:paddingLeft="10dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
+            android:inputType="numberDecimal"
             android:textSize="15dp"
             android:textColor="@color/white"/>
     </LinearLayout>
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnSave"
         android:layout_width="190dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="180dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Add"
+        android:text="Save"
         android:textColor="@color/orange"
         app:cornerRadius="8dp" />
 

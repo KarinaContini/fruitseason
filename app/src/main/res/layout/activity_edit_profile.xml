@@ -25,21 +25,12 @@
         android:layout_gravity ="center_horizontal"
         android:background="@android:color/white" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity ="center_horizontal"
         android:layout_marginTop="25dp"
-        android:src="@drawable/img_placement"/>
+        android:src="@drawable/image_profile"/>
 
-    <TextView
-        android:id="@+id/textImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Insert photo"
-        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/editName"
