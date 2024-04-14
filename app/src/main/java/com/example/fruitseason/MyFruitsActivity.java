@@ -1,15 +1,5 @@
 package com.example.fruitseason;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -17,9 +7,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fruitseason.adapter.AdapterFruitsForSale;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
+
+import com.example.fruitseason.adapter.AdapterMyFruits;
 import com.example.fruitseason.helper.RecyclerItemClickListener;
-import com.example.fruitseason.model.Fruit;
+import com.example.fruitseason.model.SellerFruit;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,48 +31,51 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FruitsSale extends AppCompatActivity {
+public class MyFruitsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageView menu;
-    private RecyclerView fruitsRecyclerView;
-    private List<Fruit> fruitNamesList = new ArrayList<>();
-    private AdapterFruitsForSale adapterFruits;
-    private DatabaseReference fruitsReference;
-    TextView editProfile, logout, myFruits;
+    TextView editProfile, logout;
     SearchView searchFruits;
-
+    private RecyclerView myFruitsRecyclerView;
+    private List<SellerFruit> fruitNamesList = new ArrayList<>();
+    private AdapterMyFruits adapterFruits;
+    private DatabaseReference sellerReference;
+    private FirebaseAuth mAuth;
+    Button btnAddFruit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fruit_sale);
-
+        setContentView(R.layout.activity_my_fruits);
         searchFruits = findViewById(R.id.searchView);
         drawerLayout = findViewById(R.id.drawer_layout);
         logout= findViewById(R.id.logout);
         editProfile = findViewById(R.id.editProfile);
         menu= findViewById(R.id.menu);
-        myFruits = findViewById(R.id.myFruits);
+        btnAddFruit = findViewById(R.id.btnAddFruit);
 
-        fruitsRecyclerView = findViewById(R.id.recyclerViewFruitsForSale);
+        myFruitsRecyclerView = findViewById(R.id.recyclerViewMyFruitsList);
 
-        fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        sellerReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid()).child("fruits");
+        //fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
 
         //Configurar RecyclerView
-        fruitsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fruitsRecyclerView.setHasFixedSize(true);
-        adapterFruits = new AdapterFruitsForSale(fruitNamesList, this);
-        fruitsRecyclerView.setAdapter( adapterFruits );
+        myFruitsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myFruitsRecyclerView.setHasFixedSize(true);
+        adapterFruits = new AdapterMyFruits(fruitNamesList, this);
+        myFruitsRecyclerView.setAdapter( adapterFruits );
 
         // Retrieve data from Firebase and populate the ListView
         retrieveFruits();
 
-
-        fruitsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, fruitsRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+        myFruitsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, myFruitsRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Fruit selectedFruit = fruitNamesList.get(position);
-                Intent intent = new Intent(FruitsSale.this, FruitInfo.class);
+                SellerFruit selectedFruit = fruitNamesList.get(position);
+                Intent intent = new Intent(MyFruitsActivity.this, FruitInfo.class);
                 intent.putExtra("selectedFruit", selectedFruit);
                 startActivity(intent);
             }
@@ -86,6 +91,13 @@ public class FruitsSale extends AppCompatActivity {
             }
         }));
 
+        btnAddFruit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyFruitsActivity.this, FruitsSale.class);
+                startActivity(intent);
+            }
+        });
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,34 +108,27 @@ public class FruitsSale extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(FruitsSale.this, EditProfile.class);
-            }
-        });
-        myFruits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FruitsSale.this, MyFruitsActivity.class);
-                startActivity(intent);
-                //finish();
+                redirectActivity(MyFruitsActivity.this, EditProfile.class);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FruitsSale.this, LoginActivity.class);
+                Intent intent = new Intent(MyFruitsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
 
+
     private void retrieveFruits(){
-        fruitsReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
+        sellerReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fruitNamesList.clear();
                 for ( DataSnapshot ds : snapshot.getChildren() ){
-                    fruitNamesList.add( ds.getValue(Fruit.class) );
+                    fruitNamesList.add( ds.getValue(SellerFruit.class) );
                 }
                 //Collections.reverse( fruits );
                 adapterFruits.notifyDataSetChanged();

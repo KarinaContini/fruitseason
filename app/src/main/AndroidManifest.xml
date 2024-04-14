@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,43 +17,51 @@
         android:theme="@style/Theme.Fruitseason"
         tools:targetApi="31">
         <activity
-            android:name=".PasswordChange"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".SellerDetailsActivity"
             android:exported="false" />
+        <activity
+            android:name=".SellersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManagePictures"
+            android:exported="false" />
+        <activity
+            android:name=".PasswordChange"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SeasonalFruits"
-            android:exported="false"/>
-
-
-
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Registration"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".FruitsSale"
             android:exported="false" />
-
-
         <activity
             android:name=".FruitInfo"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
+        <activity
+            android:name=".MyFruitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

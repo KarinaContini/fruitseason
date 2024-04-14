@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/myFruits"
         android:fontFamily="@font/montserrat_medium"
-        android:text="My fruits"
+        android:text="My Fruits"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/white"
