@@ -1,6 +1,7 @@
 package com.example.fruitseason;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,19 @@ public class FruitsSale extends AppCompatActivity {
         setContentView(R.layout.activity_fruit_sale);
 
         searchFruits = findViewById(R.id.searchView);
+        searchFruits.clearFocus();
+        searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
         drawerLayout = findViewById(R.id.drawer_layout);
         logout= findViewById(R.id.logout);
         editProfile = findViewById(R.id.editProfile);
@@ -116,6 +131,21 @@ public class FruitsSale extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void filterList(String newText) {
+        List<Fruit>filteredList = new ArrayList<>();
+        for (Fruit fruit: fruitNamesList){
+            if(fruit.getName().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(fruit);
+            }
+        }
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapterFruits.setFilteredList(filteredList);
+        }
+
     }
 
     private void retrieveFruits(){

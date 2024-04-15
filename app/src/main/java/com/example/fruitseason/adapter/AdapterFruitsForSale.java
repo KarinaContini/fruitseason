@@ -25,7 +25,10 @@ public class AdapterFruitsForSale extends RecyclerView.Adapter<AdapterFruitsForS
         this.fruits = fruits;
         this.context = context;
     }
-
+    public void setFilteredList(List<Fruit> filteredList){
+        this.fruits = filteredList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

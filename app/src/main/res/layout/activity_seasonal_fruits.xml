@@ -46,7 +46,6 @@
         android:paddingBottom="2dp"
         android:textColor="@color/orange"
         android:textColorHint="@color/orange"
-
         android:textSize="15dp" />
 
 

@@ -15,7 +15,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,17 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addFruits"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Add Fruits"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -41,7 +51,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
 
 
