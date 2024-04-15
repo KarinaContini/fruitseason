@@ -60,7 +60,6 @@ public class MyFruitsActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         sellerReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid()).child("fruits");
-        //fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
 
         //Configurar RecyclerView
         myFruitsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -77,6 +76,7 @@ public class MyFruitsActivity extends AppCompatActivity {
                 SellerFruit selectedFruit = fruitNamesList.get(position);
                 Intent intent = new Intent(MyFruitsActivity.this, FruitInfo.class);
                 intent.putExtra("selectedFruit", selectedFruit);
+                intent.putExtra("parentActivity", 2);
                 startActivity(intent);
             }
 

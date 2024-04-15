@@ -32,16 +32,19 @@ import com.squareup.picasso.Picasso;
 
 
 public class FruitInfo extends AppCompatActivity{
-    TextView textView;
+    TextView textView, price;
     ImageView imgView;
     private DrawerLayout drawerLayout;
     private ImageView menu;
-    TextView editProfile, logout, price;
+    TextView editProfile, logout;
     Button btnSave;
 
     private Fruit fruitSelected;
+    private SellerFruit sellerFruitSelected;
     private DatabaseReference sellerReference;
     private FirebaseAuth mAuth;
+    private int parent;
+    private String name, image, fruitId;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,12 +63,30 @@ public class FruitInfo extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
 
-        fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
 
-        if(fruitSelected != null){
-            textView.setText(fruitSelected.getName());
-            Picasso.get().load(fruitSelected.getImage()).into(imgView);
+
+        Intent intent = getIntent();
+        parent = intent.getIntExtra("parentActivity",0);
+        if (parent == 1){
+            fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
+            if(fruitSelected != null){
+                name = fruitSelected.getName();
+                image = fruitSelected.getImage();
+                fruitId = fruitSelected.getFruitId();
+                textView.setText(name);
+                Picasso.get().load(image).into(imgView);
+            }
+        } else if (parent == 2) {
+            sellerFruitSelected = (SellerFruit) getIntent().getSerializableExtra("selectedFruit");
+            name = sellerFruitSelected.getName();
+            //image = sellerFruitSelected.getImage();
+            fruitId = sellerFruitSelected.getFruitId();
+            price.setText(sellerFruitSelected.getPrice());
+            textView.setText(name);
+
+            Picasso.get().load(image).into(imgView);
         }
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,23 +96,24 @@ public class FruitInfo extends AppCompatActivity{
                 if (!value.isEmpty() && !value.equals("0")){
 
                     SellerFruit fruit = new SellerFruit();
-                    fruit.setName(fruitSelected.getName());
+                    fruit.setName(name);
                     fruit.setPrice(value);
-                    fruit.setFruitId(fruitSelected.getFruitId());
+                    fruit.setFruitId(fruitId);
 
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     sellerReference = FirebaseDatabase.getInstance().getReference("users");
 
-                    sellerReference.child(firebaseUser.getUid()).child("fruits").child(fruitSelected.getFruitId()).setValue(fruit).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    sellerReference.child(firebaseUser.getUid()).child("fruits").child(fruitId).setValue(fruit).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(FruitInfo.this,
                                         "Fruit details saved! ", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(FruitInfo.this,FruitsSale.class);
+                                Intent intent = new Intent(FruitInfo.this,MyFruitsActivity.class);
                                 startActivity(intent);
                                 finish();
+
                             }else{
                                 Toast.makeText(FruitInfo.this, "Failed registration", Toast.LENGTH_SHORT).show();
                             }

@@ -50,12 +50,11 @@ public class Registration extends AppCompatActivity {
     private TextView buttonLogin, txtPhoto;
 
     private CircleImageView circleImageViewProfile;
-
-    private ImageView imageProfile;
     private FirebaseAuth mAuth;
     private static final String TAG= "Registration";
     DatabaseReference reference;
     Button buttonReg;
+    private String profilePicture;
 
     StorageReference storage;
 
@@ -166,7 +165,7 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            Model model = new Model(name,phone,address,city,province);
+                            Model model = new Model(name,phone,address,city,province,profilePicture );
                             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
                             reference = FirebaseDatabase.getInstance().getReference("users");
@@ -218,7 +217,6 @@ public class Registration extends AppCompatActivity {
                 if ( image != null ) {
                     circleImageViewProfile.setImageBitmap(image);
 
-
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.JPEG, 80, baos );
                     byte[] imageData = baos.toByteArray();
@@ -242,6 +240,7 @@ public class Registration extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri url = task.getResult();
                                     updatePhotoUser( url );
+                                    profilePicture = url.toString();
                                 }
                             });
                         }
