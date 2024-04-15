@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/emailLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
@@ -38,7 +38,7 @@
     <EditText
         android:id="@+id/passwordLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:inputType="textPassword"
         android:background="@drawable/edit_text_border"

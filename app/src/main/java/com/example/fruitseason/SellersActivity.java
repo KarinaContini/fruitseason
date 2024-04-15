@@ -32,7 +32,6 @@ public class SellersActivity extends AppCompatActivity {
     private AdapterSellers adapterSellers;
     private DatabaseReference sellersReference;
     TextView searchSeller;
-
     private Fruit fruitSelected;
 
     @Override
@@ -63,7 +62,7 @@ public class SellersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Model selectedSeller = sellersList.get(position);
-                Intent intent = new Intent(SellersActivity.this, SellerDetailsActivity.class);
+                Intent intent = new Intent(SellersActivity.this, SellerMapsActivity.class);
                 intent.putExtra("selectedSeller", selectedSeller);
                 startActivity(intent);
             }

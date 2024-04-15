@@ -6,17 +6,23 @@ public class Model implements Serializable {
     private String name,email,phone,address, city, province;
     private String image;
 
-    public Model(String n,String ph, String a, String c, String p){
+    public Model(String n,String ph, String a, String c, String p, String i){
         name = n;
         phone = ph;
         address= a;
         city= c;
         province= p;
+        image = i;
     }
 
     public Model() {
     }
 
+    public String getFullAddress(){
+        //"Av. República do Líbano, 1291 - Parque Ibirapuera, São Paulo - SP, Brazil"
+        return address + ", "+ city + " - " + province;
+
+    }
     public String getImage() {
         return image;
     }
