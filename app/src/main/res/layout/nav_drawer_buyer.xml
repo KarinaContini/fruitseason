@@ -29,10 +29,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="530dp"
+        android:layout_marginTop="450dp"
         android:background="@color/white"/>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Home"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
 
 </LinearLayout>

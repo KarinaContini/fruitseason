@@ -1,11 +1,17 @@
 package com.example.fruitseason;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fruitseason.model.Model;
@@ -29,6 +35,9 @@ public class SellerMapsActivity extends FragmentActivity implements OnMapReadyCa
     private TextView txtOpeningHours, txtAddress, txtName;
     private Model selectedSeller;
     private String fullAddress;
+    private DrawerLayout drawerLayout;
+    private ImageView menu;
+    TextView sellers, seasonalFruits, startingPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +45,11 @@ public class SellerMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         binding = ActivitySellerMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        drawerLayout = findViewById(R.id.drawer_layout_buyer);
+        menu= findViewById(R.id.menu_buyer);
+        seasonalFruits = findViewById(R.id.searchFruits);
+        sellers = findViewById(R.id.sellers);
+        startingPage = findViewById(R.id.home);
         txtAddress = findViewById(R.id.txtAddressDetails);
         txtOpeningHours = findViewById(R.id.txtOpeningHours);
         txtName = findViewById(R.id.nameSellerDetails);
@@ -48,7 +61,30 @@ public class SellerMapsActivity extends FragmentActivity implements OnMapReadyCa
             txtName.setText(selectedSeller.getName());
             fullAddress = selectedSeller.getFullAddress();
         }
-
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDrawer(drawerLayout);
+            }
+        });
+        seasonalFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(SellerMapsActivity.this, SeasonalFruits.class);
+            }
+        });
+        sellers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(SellerMapsActivity.this, SellersActivity.class);
+            }
+        });
+        startingPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(SellerMapsActivity.this, MainActivity.class);
+            }
+        });
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -112,7 +148,24 @@ public class SellerMapsActivity extends FragmentActivity implements OnMapReadyCa
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        
-
+    }
+    public static void openDrawer(DrawerLayout drawerLayout){
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+    public static void closeDrawer(DrawerLayout drawerLayout){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+    public static void redirectActivity(Activity activity, Class secondActivity){
+        Intent intent = new Intent(activity,secondActivity);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        closeDrawer(drawerLayout);
     }
 }
+

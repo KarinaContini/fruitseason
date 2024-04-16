@@ -35,16 +35,17 @@ public class SeasonalFruits extends AppCompatActivity {
     private List<Fruit> fruits = new ArrayList<>();
     private AdapterFruits adapterFruits;
     private DatabaseReference fruitsReference;
-    TextView seasonalFruits;
+    TextView sellers, startingPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seasonal_fruits);
         drawerLayout = findViewById(R.id.drawer_layout_buyer);
-        seasonalFruits = findViewById(R.id.searchFruits);
+        sellers = findViewById(R.id.sellers);
+        startingPage = findViewById(R.id.home);
+
         menu= findViewById(R.id.menu_buyer);
         fruitsList = findViewById(R.id.recyclerViewFruitsList);
-
         fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -53,13 +54,18 @@ public class SeasonalFruits extends AppCompatActivity {
                 openDrawer(drawerLayout);
             }
         });
-        seasonalFruits.setOnClickListener(new View.OnClickListener() {
+        sellers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(SeasonalFruits.this, EditProfile.class);
-            } //muder nome da classe depois
+                redirectActivity(SeasonalFruits.this, SellersActivity.class);
+            }
         });
-
+        startingPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(SeasonalFruits.this, MainActivity.class);
+            }
+        });
         //Configurar RecyclerView
         fruitsList.setLayoutManager(new LinearLayoutManager(this));
         fruitsList.setHasFixedSize(true);
@@ -117,7 +123,6 @@ public class SeasonalFruits extends AppCompatActivity {
     }
     public static void redirectActivity(Activity activity, Class secondActivity){
         Intent intent = new Intent(activity,secondActivity);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
         activity.finish();
     }
