@@ -166,11 +166,6 @@ public class MyFruitsActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-    public static void redirectActivity(Activity activity, Class secondActivity){
-        Intent intent = new Intent(activity,secondActivity);
-        activity.startActivity(intent);
-        activity.finish();
-    }
     @Override
     protected void onPause(){
         super.onPause();
