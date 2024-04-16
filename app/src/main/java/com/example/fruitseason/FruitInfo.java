@@ -136,6 +136,7 @@ public class FruitInfo extends AppCompatActivity{
         });
         myFruits.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
                 Intent intent = new Intent(FruitInfo.this, MyFruitsActivity.class);
                 startActivity(intent);

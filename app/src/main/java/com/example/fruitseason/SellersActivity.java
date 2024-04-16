@@ -60,7 +60,7 @@ public class SellersActivity extends AppCompatActivity {
         sellers = findViewById(R.id.sellers);
         startingPage = findViewById(R.id.home);
         sellersRecyclerView = findViewById(R.id.recyclerViewSellersList);
-        searchFruits = findViewById(R.id.searchView);
+        searchFruits = findViewById(R.id.txtSearchSeller);
         searchFruits.clearFocus();
         searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
