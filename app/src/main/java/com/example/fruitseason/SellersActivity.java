@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fruitseason.adapter.AdapterFruits;
 import com.example.fruitseason.adapter.AdapterSellers;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -38,10 +41,13 @@ public class SellersActivity extends AppCompatActivity {
     private DatabaseReference sellersReference;
     TextView sellers, seasonalFruits, startingPage;
     private Fruit fruitSelected;
+    private String name, fruitId;
+    private Query sellerQuery;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v("info", "entrei na Seller");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sellers);
         drawerLayout = findViewById(R.id.drawer_layout_buyer);
@@ -86,14 +92,22 @@ public class SellersActivity extends AppCompatActivity {
         fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
 
         if(fruitSelected != null){
-
+            name = fruitSelected.getName();
+            fruitId = fruitSelected.getFruitId();
+        } else {
+            Toast.makeText(SellersActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
 
+        Log.v("info", "antes da reference");
         sellersReference = FirebaseDatabase.getInstance().getReference("users");
 
+        //sellerQuery = sellersReference.child("fruits").orderByChild("fruitId").equalTo("001");
+        Log.v("info", "criou a query");
+        //teste();
         retrieveSellers();
 
         sellersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, sellersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+
             @Override
             public void onItemClick(View view, int position) {
                 Model selectedSeller = sellersList.get(position);
@@ -115,7 +129,8 @@ public class SellersActivity extends AppCompatActivity {
     }
 
     private void retrieveSellers(){
-        sellersReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
+        //orderByChild("name").
+        sellersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 sellersList.clear();
@@ -149,5 +164,38 @@ public class SellersActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         closeDrawer(drawerLayout);
+    }
+
+    private void teste() {
+        Log.v("info", "entrou no teste");
+        //List<Model> users = new ArrayList<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbUsers = database.getReference("users");
+        Query q = dbUsers.orderByChild("name");
+        Log.v("info", "criou a query");
+        q.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.v("info", "entrou no DataChange do metodo Teste");
+                sellersList.clear();
+                Log.v("info", String.valueOf(dataSnapshot.getChildrenCount()));
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Log.v("info", "entrou no Child do snapshot");
+                    Log.v("info", String.valueOf(postSnapshot.exists()));
+
+                    Model user = postSnapshot.getValue(Model.class);
+                    Log.v("info", "apos get value");
+                    Log.v("info", String.valueOf(user.getFruits().size()));
+                    if(user.getFruits().stream().filter(f -> "001".equals(f.getFruitId())).count() > 0){
+                        Log.v("info", "pelo menos 1 seller com fruta 1");
+                        sellersList.add(user);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }

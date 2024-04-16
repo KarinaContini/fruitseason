@@ -143,6 +143,8 @@ public class SellerMapsActivity extends FragmentActivity implements OnMapReadyCa
                 LatLng sellerLocation = new LatLng(lat, lon);
                 mMap.addMarker(new MarkerOptions().position(sellerLocation).title("Seller Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sellerLocation,15));
+
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             }
 
         } catch (java.io.IOException e) {

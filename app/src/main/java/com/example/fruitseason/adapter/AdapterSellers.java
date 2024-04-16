@@ -40,7 +40,12 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
         holder.name.setText(seller.getName());
         holder.address.setText(seller.getAddress());
 
-        Picasso.get().load(seller.getImage()).into(holder.image);
+        if(seller.getImage() != null){
+            Picasso.get().load(seller.getImage()).into(holder.image);
+        } else {
+            holder.image.setImageResource(R.drawable.img_placement);
+        }
+
     }
 
     @Override

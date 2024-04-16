@@ -13,7 +13,7 @@
         android:id="@+id/imageFruitsList"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="60dp"
         android:src="@drawable/img_placement"
         />
 

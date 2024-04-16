@@ -43,7 +43,7 @@
             android:queryBackground="@android:color/transparent"
             android:searchIcon="@drawable/search_icon_orange"
             android:closeIcon="@drawable/close_icon_orange"
-            android:queryHint="Search fruit"
+            android:queryHint="Search seller"
             android:textColorHint="@color/orange"/>
 
 

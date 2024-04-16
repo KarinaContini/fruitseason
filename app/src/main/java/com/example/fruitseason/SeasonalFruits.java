@@ -1,6 +1,7 @@
 package com.example.fruitseason;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,7 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class SeasonalFruits extends AppCompatActivity {
     private AdapterFruits adapterFruits;
     private DatabaseReference fruitsReference;
     TextView sellers, startingPage, seasonalFruits;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,19 @@ public class SeasonalFruits extends AppCompatActivity {
         menu= findViewById(R.id.menu_buyer);
         fruitsList = findViewById(R.id.recyclerViewFruitsList);
         fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+
+
+        // Get the current month
+        /* //Using java.time package (for API level 26 and higher):
+        LocalDate currentDate = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDate = LocalDate.now();
+        }
+        Month currentMonth = currentDate.getMonth(); // Enum representing the month
+        int currentMonthValue = currentDate.getMonthValue(); // Month value (1 = January)*/
+
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH); // Month is zero-based (0 = January)
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +120,7 @@ public class SeasonalFruits extends AppCompatActivity {
     }
 
     private void retrieveFruits(){
+
         fruitsReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,6 +130,7 @@ public class SeasonalFruits extends AppCompatActivity {
                 }
                 //Collections.reverse( fruits );
                 adapterFruits.notifyDataSetChanged();
+
             }
 
             @Override

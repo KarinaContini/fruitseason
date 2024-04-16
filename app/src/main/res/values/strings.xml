@@ -2,7 +2,6 @@
     <string name="app_name">fruitseason</string>
     <string name="open_nav">Open Navigation</string>
     <string name="close_nav">Close Navigation</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_seller_maps">SellerMapsActivity</string>
     <string name="google_maps_key">
