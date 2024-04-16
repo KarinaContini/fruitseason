@@ -35,7 +35,7 @@ public class MyFruitsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageView menu;
-    TextView editProfile, logout;
+    TextView editProfile, logout, myFruits, addFruits;
     SearchView searchFruits;
     private RecyclerView myFruitsRecyclerView;
     private List<SellerFruit> fruitNamesList = new ArrayList<>();
@@ -48,6 +48,8 @@ public class MyFruitsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_fruits);
         searchFruits = findViewById(R.id.searchView);
+        myFruits = findViewById(R.id.myFruits);
+        addFruits = findViewById(R.id.addFruits);
         drawerLayout = findViewById(R.id.drawer_layout);
         logout= findViewById(R.id.logout);
         editProfile = findViewById(R.id.editProfile);
@@ -105,10 +107,25 @@ public class MyFruitsActivity extends AppCompatActivity {
                 openDrawer(drawerLayout);
             }
         });
+        myFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeDrawer(drawerLayout);
+            }
+        });
+        addFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyFruitsActivity.this, FruitsSale.class);
+                startActivity(intent);
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(MyFruitsActivity.this, EditProfile.class);
+                Intent intent = new Intent(MyFruitsActivity.this, EditProfile.class);
+                startActivity(intent);
+                finish();
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

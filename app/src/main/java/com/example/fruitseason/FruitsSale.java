@@ -39,7 +39,7 @@ public class FruitsSale extends AppCompatActivity {
     private List<Fruit> fruitNamesList = new ArrayList<>();
     private AdapterFruitsForSale adapterFruits;
     private DatabaseReference fruitsReference;
-    TextView editProfile, logout, myFruits;
+    TextView editProfile, logout, myFruits, addFruits;
     SearchView searchFruits;
 
     @Override
@@ -66,6 +66,7 @@ public class FruitsSale extends AppCompatActivity {
         editProfile = findViewById(R.id.editProfile);
         menu= findViewById(R.id.menu);
         myFruits = findViewById(R.id.myFruits);
+        addFruits = findViewById(R.id.addFruits);
 
         fruitsRecyclerView = findViewById(R.id.recyclerViewFruitsForSale);
 
@@ -109,10 +110,25 @@ public class FruitsSale extends AppCompatActivity {
                 openDrawer(drawerLayout);
             }
         });
+        myFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FruitsSale.this, MyFruitsActivity.class);
+                startActivity(intent);
+            }
+        });
+        addFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeDrawer(drawerLayout);
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(FruitsSale.this, EditProfile.class);
+                Intent intent = new Intent(FruitsSale.this, EditProfile.class);
+                startActivity(intent);
+                finish();
             }
         });
         myFruits.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +136,7 @@ public class FruitsSale extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(FruitsSale.this, MyFruitsActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

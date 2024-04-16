@@ -67,7 +67,7 @@ public class SellersActivity extends AppCompatActivity {
         sellers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(SellersActivity.this, SellersActivity.class);
+                closeDrawer(drawerLayout);
             }
         });
         startingPage.setOnClickListener(new View.OnClickListener() {

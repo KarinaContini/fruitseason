@@ -36,7 +36,7 @@ public class FruitInfo extends AppCompatActivity{
     ImageView imgView;
     private DrawerLayout drawerLayout;
     private ImageView menu;
-    TextView editProfile, logout;
+    TextView editProfile, logout, myFruits, addFruits;
     Button btnSave;
 
     private Fruit fruitSelected;
@@ -52,7 +52,8 @@ public class FruitInfo extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit_info);
         drawerLayout = findViewById(R.id.drawer_layout);
-
+        myFruits = findViewById(R.id.myFruits);
+        addFruits = findViewById(R.id.addFruits);
         editProfile = findViewById(R.id.editProfile);
         logout = findViewById(R.id.logout);
         menu= findViewById(R.id.menu);
@@ -133,10 +134,25 @@ public class FruitInfo extends AppCompatActivity{
                 openDrawer(drawerLayout);
             }
         });
+        myFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FruitInfo.this, MyFruitsActivity.class);
+                startActivity(intent);
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(FruitInfo.this, EditProfile.class);
+                Intent intent = new Intent(FruitInfo.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+        addFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FruitInfo.this, FruitsSale.class);
+                startActivity(intent);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

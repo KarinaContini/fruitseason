@@ -35,7 +35,7 @@ public class SeasonalFruits extends AppCompatActivity {
     private List<Fruit> fruits = new ArrayList<>();
     private AdapterFruits adapterFruits;
     private DatabaseReference fruitsReference;
-    TextView sellers, startingPage;
+    TextView sellers, startingPage, seasonalFruits;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,7 @@ public class SeasonalFruits extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout_buyer);
         sellers = findViewById(R.id.sellers);
         startingPage = findViewById(R.id.home);
+        seasonalFruits = findViewById(R.id.searchFruits);
 
         menu= findViewById(R.id.menu_buyer);
         fruitsList = findViewById(R.id.recyclerViewFruitsList);
@@ -52,6 +53,12 @@ public class SeasonalFruits extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openDrawer(drawerLayout);
+            }
+        });
+        seasonalFruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeDrawer(drawerLayout);
             }
         });
         sellers.setOnClickListener(new View.OnClickListener() {
