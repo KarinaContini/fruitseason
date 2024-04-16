@@ -161,7 +161,6 @@ public class FruitsSale extends AppCompatActivity {
         }else{
             adapterFruits.setFilteredList(filteredList);
         }
-
     }
 
     private void retrieveFruits(){

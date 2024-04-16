@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fruitseason.adapter.AdapterFruits;
 import com.example.fruitseason.helper.RecyclerItemClickListener;
@@ -39,6 +41,7 @@ public class SeasonalFruits extends AppCompatActivity {
     private AdapterFruits adapterFruits;
     private DatabaseReference fruitsReference;
     TextView sellers, startingPage, seasonalFruits;
+    SearchView searchFruits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,20 @@ public class SeasonalFruits extends AppCompatActivity {
         menu= findViewById(R.id.menu_buyer);
         fruitsList = findViewById(R.id.recyclerViewFruitsList);
         fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+        searchFruits = findViewById(R.id.txtSearchSeller);
+        searchFruits.clearFocus();
+        searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
 
         // Get the current month
         /* //Using java.time package (for API level 26 and higher):
@@ -138,6 +154,19 @@ public class SeasonalFruits extends AppCompatActivity {
 
             }
         });
+    }
+    private void filterList(String newText) {
+        List<Fruit>filteredList = new ArrayList<>();
+        for (Fruit fruit: fruits){
+            if(fruit.getName().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(fruit);
+            }
+        }
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapterFruits.setFilteredList(filteredList);
+        }
     }
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);

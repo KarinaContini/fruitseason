@@ -32,26 +32,23 @@
         android:layout_marginTop="5dp"
         android:layout_gravity ="center_horizontal"
         android:background="@color/orange" />
-        <SearchView
-            android:id="@+id/txtSearchSeller"
-            android:layout_width="300dp"
-            android:layout_gravity ="center_horizontal"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:iconifiedByDefault="false"
-            android:queryBackground="@android:color/transparent"
-            android:searchIcon="@drawable/search_icon_orange"
-            android:closeIcon="@drawable/close_icon_orange"
-            android:queryHint="Search fruit"
-            android:textColorHint="@color/orange"/>
-
-
+    <SearchView
+        android:id="@+id/txtSearchSeller"
+        android:layout_width="300dp"
+        android:layout_gravity ="center_horizontal"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:searchIcon="@drawable/search_icon_orange"
+        android:closeIcon="@drawable/close_icon_orange"
+        android:queryHint="Search fruit"
+        android:textColorHint="@color/orange"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFruitsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
-
 
     </LinearLayout>
     <RelativeLayout
