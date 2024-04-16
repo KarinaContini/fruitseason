@@ -7,7 +7,8 @@
     android:layout_height="100dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/imageSellersList"
@@ -15,6 +16,7 @@
         android:layout_height="100dp"
         android:layout_marginLeft="20dp"
         android:src="@drawable/img_placement"
+        android:scaleType="centerCrop"
         />
 
     <LinearLayout

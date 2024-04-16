@@ -77,7 +77,7 @@ public class MyFruitsActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 SellerFruit selectedFruit = fruitNamesList.get(position);
                 Intent intent = new Intent(MyFruitsActivity.this, FruitInfo.class);
-                intent.putExtra("selectedFruit", selectedFruit);
+                intent.putExtra("selec;tedFruit", selectedFruit);
                 intent.putExtra("parentActivity", 2);
                 startActivity(intent);
             }
