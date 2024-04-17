@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class SellersActivity extends AppCompatActivity {
     private Fruit fruitSelected;
     private String name, fruitId;
     private Query sellerQuery;
+    SearchView searchFruits;
 
 
     @Override
@@ -58,6 +60,20 @@ public class SellersActivity extends AppCompatActivity {
         sellers = findViewById(R.id.sellers);
         startingPage = findViewById(R.id.home);
         sellersRecyclerView = findViewById(R.id.recyclerViewSellersList);
+        searchFruits = findViewById(R.id.txtSearchSeller);
+        searchFruits.clearFocus();
+        searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +143,19 @@ public class SellersActivity extends AppCompatActivity {
             }
         }));
     }
-
+    private void filterList(String newText) {
+        List<Model>filteredList = new ArrayList<>();
+        for (Model seller: sellersList){
+            if(seller.getName().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(seller);
+            }
+        }
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapterSellers.setFilteredList(filteredList);
+        }
+    }
     private void retrieveSellers(){
         //orderByChild("name").
         sellersReference.addValueEventListener(new ValueEventListener() {

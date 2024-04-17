@@ -26,6 +26,10 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
         this.sellers = sellers;
         this.context = context;
     }
+    public void setFilteredList(List<Model> filteredList) {
+        this.sellers = filteredList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -52,6 +56,7 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
     public int getItemCount() {
         return sellers.size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 

@@ -16,9 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fruitseason.adapter.AdapterMyFruits;
 import com.example.fruitseason.helper.RecyclerItemClickListener;
+import com.example.fruitseason.model.Fruit;
 import com.example.fruitseason.model.SellerFruit;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,7 +57,20 @@ public class MyFruitsActivity extends AppCompatActivity {
         editProfile = findViewById(R.id.editProfile);
         menu= findViewById(R.id.menu);
         btnAddFruit = findViewById(R.id.btnAddFruit);
+        searchFruits = findViewById(R.id.searchView);
+        searchFruits.clearFocus();
+        searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
         myFruitsRecyclerView = findViewById(R.id.recyclerViewMyFruitsList);
 
         mAuth = FirebaseAuth.getInstance();
@@ -157,7 +172,19 @@ public class MyFruitsActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void filterList(String newText) {
+        List<SellerFruit>filteredList = new ArrayList<>();
+        for (SellerFruit sellerFruit: fruitNamesList){
+            if(sellerFruit.getName().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(sellerFruit);
+            }
+        }
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapterFruits.setFilteredList(filteredList);
+        }
+    }
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);
     }
