@@ -81,8 +81,8 @@ public class Registration extends AppCompatActivity {
         citytxt = findViewById(R.id.txtCity);
         phonetxt = findViewById(R.id.txtPhone);
         buttonLogin = findViewById(R.id.btnLogin);
-        txtPhoto = findViewById(R.id.txtInsertPhoto);
-        circleImageViewProfile = findViewById(R.id.circleImageView_ImgProfile);
+        //txtPhoto = findViewById(R.id.txtInsertPhoto);
+        //circleImageViewProfile = findViewById(R.id.circleImageView_ImgProfile);
 
         mAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance().getReference();

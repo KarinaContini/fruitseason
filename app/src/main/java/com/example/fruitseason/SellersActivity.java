@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.fruitseason.adapter.AdapterSellers;
 import com.example.fruitseason.helper.RecyclerItemClickListener;
 import com.example.fruitseason.model.Fruit;
 import com.example.fruitseason.model.Model;
+import com.example.fruitseason.model.SellerFruit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,11 +42,12 @@ public class SellersActivity extends AppCompatActivity {
     private List<Model> sellersList = new ArrayList<>();
     private AdapterSellers adapterSellers;
     private DatabaseReference sellersReference;
-    TextView sellers, seasonalFruits, startingPage;
+    private TextView sellers, seasonalFruits, startingPage,selectedFruit;
     private Fruit fruitSelected;
-    private String name, fruitId;
+    private String name, fruitIdSelected;
     private Query sellerQuery;
     SearchView searchFruits;
+
 
 
     @Override
@@ -61,7 +64,10 @@ public class SellersActivity extends AppCompatActivity {
         startingPage = findViewById(R.id.home);
         sellersRecyclerView = findViewById(R.id.recyclerViewSellersList);
         searchFruits = findViewById(R.id.txtSearchSeller);
+
+        selectedFruit = findViewById(R.id.txtSelectedFruit);
         searchFruits.clearFocus();
+
         searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -109,7 +115,8 @@ public class SellersActivity extends AppCompatActivity {
 
         if(fruitSelected != null){
             name = fruitSelected.getName();
-            fruitId = fruitSelected.getFruitId();
+            selectedFruit.setText(name);
+            fruitIdSelected = fruitSelected.getFruitId();
         } else {
             Toast.makeText(SellersActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
@@ -118,9 +125,11 @@ public class SellersActivity extends AppCompatActivity {
         sellersReference = FirebaseDatabase.getInstance().getReference("users");
 
         //sellerQuery = sellersReference.child("fruits").orderByChild("fruitId").equalTo("001");
+        //sellerQuery = sellersReference.orderByChild("fruits/fruitId").equalTo(fruitId);
         Log.v("info", "criou a query");
         //teste();
-        retrieveSellers();
+
+        retrieveSelectedSellers();
 
         sellersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, sellersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
 
@@ -156,25 +165,51 @@ public class SellersActivity extends AppCompatActivity {
             adapterSellers.setFilteredList(filteredList);
         }
     }
-    private void retrieveSellers(){
-        //orderByChild("name").
-        sellersReference.addValueEventListener(new ValueEventListener() {
+    private void retrieveAllSellers(){
+
+        sellersReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 sellersList.clear();
                 for ( DataSnapshot ds : snapshot.getChildren() ){
+                    Log.i("Dados usuario: ", ds.getValue().toString() );
                     sellersList.add( ds.getValue(Model.class) );
+
                 }
 
                 adapterSellers.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
+
+    private void retrieveSelectedSellers(){
+
+        sellersReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sellersList.clear();
+                for ( DataSnapshot ds : snapshot.getChildren() ){
+                    DataSnapshot fruitsSnapshot = ds.child("fruits");
+                    for (DataSnapshot fruitSnapshot : fruitsSnapshot.getChildren()) {
+                        String fruitId = fruitSnapshot.getKey();
+                        if(fruitId.equals(fruitIdSelected)){
+                            sellersList.add( ds.getValue(Model.class) );
+                        }
+                    }
+                }
+                adapterSellers.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);
     }
