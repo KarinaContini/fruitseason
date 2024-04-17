@@ -56,7 +56,7 @@
             android:textSize="20dp"/>
         <EditText
             android:id="@+id/txtPrice"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/montserrat"
@@ -67,6 +67,14 @@
             android:inputType="numberDecimal"
             android:textSize="15dp"
             android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text=" R$/Kg"
+            android:textColor="@color/white"
+            android:textSize="15dp"/>
     </LinearLayout>
     <Button
         android:id="@+id/btnSave"

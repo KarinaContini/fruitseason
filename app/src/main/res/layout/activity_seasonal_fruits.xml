@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Seasonal Fruits"
+        android:text="Fruits"
         android:textColor="@color/orange"
         android:textSize="30dp" />
     <View
@@ -32,6 +32,41 @@
         android:layout_marginTop="5dp"
         android:layout_gravity ="center_horizontal"
         android:background="@color/orange" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtFilterAllFruits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All fruits"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/orange"/>
+
+            <Switch
+                android:id="@+id/switchType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:buttonTint="@color/orange"
+                android:thumbTint="@color/orange"
+                android:trackTint="@color/gray"/>
+
+            <TextView
+                android:id="@+id/txtFilterSeasonalFruits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seasonal fruits"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/orange"/>
+        </LinearLayout>
+
     <SearchView
         android:id="@+id/txtSearchSeller"
         android:layout_width="300dp"
@@ -44,6 +79,7 @@
         android:closeIcon="@drawable/close_icon_orange"
         android:queryHint="Search fruit"
         android:textColorHint="@color/orange"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFruitsList"
             android:layout_width="match_parent"
