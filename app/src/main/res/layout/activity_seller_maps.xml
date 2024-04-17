@@ -78,10 +78,23 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="Monday to Friday"
         android:textColor="@color/orange"
-        android:textSize="14dp" />
+        android:textSize="14dp"/>
+        <Button
+            android:id="@+id/btnSeeFruits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="See Fruits"
+            android:fontFamily="@font/montserrat_medium"
+            app:cornerRadius="8dp"
+            />
 
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"

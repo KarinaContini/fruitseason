@@ -7,26 +7,22 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
-import java.util.concurrent.ExecutionException;
 
 public class PasswordChange extends AppCompatActivity {
 
-    private Button buttonReset, cancel;
+    private Button buttonReset;
+    private TextView cancel;
     private EditText emailRegistered;
     private FirebaseAuth mAuth;
     private final static String TAG = "PasswordChange";
@@ -34,7 +30,6 @@ public class PasswordChange extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_password_change);
         emailRegistered = findViewById(R.id.emailChangePass);
 
@@ -48,6 +43,7 @@ public class PasswordChange extends AppCompatActivity {
                 finish();
             }
         });
+
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,7 @@
 package com.example.fruitseason.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
@@ -7,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model implements Serializable {
-    private String name,email,phone,address, city, province;
-    private String image;
+    private String name,phone,address, city, province;
+    @Nullable private String image;
+    private List<SellerFruit> fruits = new ArrayList<>();
 
-
-    public Model(String n,String ph, String a, String c, String p, String i){
+    public Model(String n,String ph, String a, String c, String p, @Nullable String i){
         name = n;
         phone = ph;
         address= a;
@@ -20,9 +22,15 @@ public class Model implements Serializable {
         image = i;
     }
 
-    public Model() {
+
+    @Exclude
+    public List<SellerFruit> getFruits() {
+        return fruits;
     }
 
+    public void setFruits(List<SellerFruit> fruits) {
+        this.fruits = fruits;
+    }
 
     @Exclude
     public String getFullAddress(){
