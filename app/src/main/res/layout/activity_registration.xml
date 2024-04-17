@@ -28,113 +28,92 @@
 
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/circleImageView_ImgProfile"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity ="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/pattern"/>
-
-    <TextView
-        android:id="@+id/txtInsertPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        android:text="Insert Photo"
-        android:fontFamily="@font/montserrat"/>
-
-
     <EditText
         android:id="@+id/txtName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Full name"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
 
     <EditText
         android:id="@+id/txtConfirmEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Confirm E-mail"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
 
     <EditText
         android:id="@+id/txtPhone"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Phone Number"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
-
+        android:textSize="17dp" />
     <EditText
         android:id="@+id/txtAddress"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Address"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity ="center_horizontal"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/txtCity"
@@ -145,12 +124,11 @@
             android:fontFamily="@font/montserrat"
             android:hint="City"
             android:paddingLeft="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="15dp" />
-
+            android:textSize="17dp" />
         <EditText
             android:id="@+id/txtProvince"
             android:layout_width="130dp"
@@ -161,11 +139,11 @@
             android:fontFamily="@font/montserrat"
             android:hint="Province"
             android:paddingLeft="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="15dp" />
+            android:textSize="17dp" />
     </LinearLayout>
 
     <EditText
@@ -173,41 +151,39 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
-
+        android:textSize="17dp" />
     <EditText
         android:id="@+id/txtConfirmPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="15dp" />
-
+        android:textSize="17dp" />
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="190dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_medium"
         android:text="Register"
