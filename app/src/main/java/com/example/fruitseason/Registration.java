@@ -47,28 +47,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Registration extends AppCompatActivity {
 
     private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addresstxt,provincetxt,citytxt, phonetxt;
-    private TextView buttonLogin, txtPhoto;
+    private TextView buttonLogin;
 
-    private CircleImageView circleImageViewProfile;
     private FirebaseAuth mAuth;
     private static final String TAG= "Registration";
     DatabaseReference reference;
     Button buttonReg;
-    private String profilePicture;
-
-    StorageReference storage;
-
-    private String[] permissions = new String[]{
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        //validate permission
-        Permissions.validatePermissions(permissions, this, 1);
+
 
         buttonReg = findViewById(R.id.btnRegister);
         emailtxt = findViewById(R.id.txtEmail);
@@ -81,21 +72,10 @@ public class Registration extends AppCompatActivity {
         citytxt = findViewById(R.id.txtCity);
         phonetxt = findViewById(R.id.txtPhone);
         buttonLogin = findViewById(R.id.btnLogin);
-        //txtPhoto = findViewById(R.id.txtInsertPhoto);
-        //circleImageViewProfile = findViewById(R.id.circleImageView_ImgProfile);
+
 
         mAuth = FirebaseAuth.getInstance();
-        storage = FirebaseStorage.getInstance().getReference();
 
-        txtPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
-                if ( i.resolveActivity(getPackageManager()) != null ){
-                    startActivityForResult(i, 200 );
-                }
-            }
-        });
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +91,6 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void registerUser(){
@@ -165,7 +144,7 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            Model model = new Model(name,phone,address,city,province,profilePicture );
+                            Model model = new Model(name,phone,address,city,province, null);
                             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
                             reference = FirebaseDatabase.getInstance().getReference("users");
@@ -204,107 +183,5 @@ public class Registration extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if ( resultCode == RESULT_OK ){
-            Bitmap image = null;
-            try {
-                Uri locationSelectedImage = data.getData();
-                image = MediaStore.Images.Media.getBitmap(getContentResolver(), locationSelectedImage );
-
-                if ( image != null ) {
-                    circleImageViewProfile.setImageBitmap(image);
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.JPEG, 80, baos );
-                    byte[] imageData = baos.toByteArray();
-
-                    String fileName = UUID.randomUUID().toString();
-                    StorageReference imageRef = storage.child("sellerImages").child(fileName + ".jpeg");
-
-                    UploadTask uploadTask = imageRef.putBytes( imageData );
-
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Registration.this,"Error uploading image", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Registration.this,"Success uploading image", Toast.LENGTH_SHORT).show();
-                            imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    Uri url = task.getResult();
-                                    updatePhotoUser( url );
-                                    profilePicture = url.toString();
-                                }
-                            });
-                        }
-                    });
-
-
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void updatePhotoUser(Uri url){
-        try {
-
-            FirebaseUser user = mAuth.getCurrentUser();
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setPhotoUri( url )
-                    .build();
-
-            user.updateProfile( profile ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if( !task.isSuccessful() ){
-                        Log.d("Profile", "Error updating profile picture.");
-                    }
-                }
-            });
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        for( int permissionResult : grantResults ){
-            if( permissionResult == PackageManager.PERMISSION_DENIED){
-                permissionValidationAlert();
-            }
-        }
-    }
-
-    private void permissionValidationAlert(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permission Denied");
-        builder.setMessage("To use the app, you need to accept the permissions");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
 
 }
