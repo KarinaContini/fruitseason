@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,11 +43,11 @@ public class SeasonalFruits extends AppCompatActivity {
     private List<Fruit> fruits = new ArrayList<>();
     private AdapterFruits adapterFruits;
     private DatabaseReference fruitsReference;
-    TextView sellers, startingPage, seasonalFruits;
+    TextView sellers, startingPage, seasonalFruits, selectAll, selectSeasonal;
     SearchView searchFruits;
     private Query startingMonth;
-
     private double currentMonth;
+    private Switch listType;
 
 
     @Override
@@ -57,11 +58,15 @@ public class SeasonalFruits extends AppCompatActivity {
         sellers = findViewById(R.id.sellers);
         startingPage = findViewById(R.id.home);
         seasonalFruits = findViewById(R.id.searchFruits);
+        listType = findViewById(R.id.switchType);
+        selectAll = findViewById(R.id.txtFilterAllFruits);
+        selectSeasonal = findViewById(R.id.txtFilterSeasonalFruits);
 
         menu= findViewById(R.id.menu_buyer);
         fruitsList = findViewById(R.id.recyclerViewFruitsList);
-        fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+
         searchFruits = findViewById(R.id.txtSearchSeller);
+
         searchFruits.clearFocus();
         searchFruits.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -76,11 +81,48 @@ public class SeasonalFruits extends AppCompatActivity {
             }
         });
 
+        fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+        listType.setChecked(true);
 
         Calendar calendar = Calendar.getInstance();
         currentMonth = (double) calendar.get(Calendar.MONTH); // Month is zero-based (0 = January)
 
         startingMonth = fruitsReference.orderByChild("start").endAt(currentMonth);
+
+        //Configurar RecyclerView
+        fruitsList.setLayoutManager(new LinearLayoutManager(this));
+        fruitsList.setHasFixedSize(true);
+        adapterFruits = new AdapterFruits(fruits, this);
+        fruitsList.setAdapter( adapterFruits );
+
+        retrieveSeasonalFruits();
+
+        selectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listType.setChecked(false);
+                retrieveAllFruits();
+            }
+        });
+
+        selectSeasonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listType.setChecked(true);
+                retrieveSeasonalFruits();
+            }
+        });
+
+        listType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listType.isChecked()){
+                    retrieveSeasonalFruits();
+                } else {
+                    retrieveAllFruits();
+                }
+            }
+        });
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,13 +149,6 @@ public class SeasonalFruits extends AppCompatActivity {
             }
         });
 
-        //Configurar RecyclerView
-        fruitsList.setLayoutManager(new LinearLayoutManager(this));
-        fruitsList.setHasFixedSize(true);
-        adapterFruits = new AdapterFruits(fruits, this);
-        fruitsList.setAdapter( adapterFruits );
-
-        retrieveSeasonalFruits();
 
         fruitsList.addOnItemTouchListener(new RecyclerItemClickListener(this, fruitsList, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
