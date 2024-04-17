@@ -25,12 +25,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SeasonalFruits extends AppCompatActivity {
@@ -42,6 +44,10 @@ public class SeasonalFruits extends AppCompatActivity {
     private DatabaseReference fruitsReference;
     TextView sellers, startingPage, seasonalFruits;
     SearchView searchFruits;
+    private Query startingMonth;
+
+    private double currentMonth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +76,11 @@ public class SeasonalFruits extends AppCompatActivity {
             }
         });
 
-        // Get the current month
-        /* //Using java.time package (for API level 26 and higher):
-        LocalDate currentDate = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentDate = LocalDate.now();
-        }
-        Month currentMonth = currentDate.getMonth(); // Enum representing the month
-        int currentMonthValue = currentDate.getMonthValue(); // Month value (1 = January)*/
 
         Calendar calendar = Calendar.getInstance();
-        int currentMonth = calendar.get(Calendar.MONTH); // Month is zero-based (0 = January)
+        currentMonth = (double) calendar.get(Calendar.MONTH); // Month is zero-based (0 = January)
+
+        startingMonth = fruitsReference.orderByChild("start").endAt(currentMonth);
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,13 +106,14 @@ public class SeasonalFruits extends AppCompatActivity {
                 redirectActivity(SeasonalFruits.this, MainActivity.class);
             }
         });
+
         //Configurar RecyclerView
         fruitsList.setLayoutManager(new LinearLayoutManager(this));
         fruitsList.setHasFixedSize(true);
         adapterFruits = new AdapterFruits(fruits, this);
         fruitsList.setAdapter( adapterFruits );
 
-        retrieveFruits();
+        retrieveSeasonalFruits();
 
         fruitsList.addOnItemTouchListener(new RecyclerItemClickListener(this, fruitsList, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -135,16 +136,45 @@ public class SeasonalFruits extends AppCompatActivity {
         }));
     }
 
-    private void retrieveFruits(){
+    private void retrieveAllFruits(){
 
         fruitsReference.orderByChild("name").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fruits.clear();
                 for ( DataSnapshot ds : snapshot.getChildren() ){
                     fruits.add( ds.getValue(Fruit.class) );
                 }
-                //Collections.reverse( fruits );
+
+                adapterFruits.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void retrieveSeasonalFruits(){
+
+        //.orderByChild("name")
+        startingMonth.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                fruits.clear();
+                for ( DataSnapshot ds : snapshot.getChildren() ) {
+                    double end = ds.child("end").getValue(Double.class);
+                    if (end >= currentMonth) {
+                        fruits.add(ds.getValue(Fruit.class));
+                    }
+                }
+
+                Collections.sort(fruits, Comparator.comparing(Fruit::getName));
+
                 adapterFruits.notifyDataSetChanged();
 
             }
@@ -187,3 +217,5 @@ public class SeasonalFruits extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 }
+
+
