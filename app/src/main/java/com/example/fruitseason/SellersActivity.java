@@ -126,8 +126,6 @@ public class SellersActivity extends AppCompatActivity {
 
         //sellerQuery = sellersReference.child("fruits").orderByChild("fruitId").equalTo("001");
         //sellerQuery = sellersReference.orderByChild("fruits/fruitId").equalTo(fruitId);
-        Log.v("info", "criou a query");
-        //teste();
 
         retrieveSelectedSellers();
 
@@ -229,6 +227,10 @@ public class SellersActivity extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 
+
+}
+
+    /*
     private void teste() {
         Log.v("info", "entrou no teste");
         //List<Model> users = new ArrayList<>();
@@ -260,5 +262,4 @@ public class SellersActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-    }
-}
+    }*/

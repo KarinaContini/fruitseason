@@ -29,8 +29,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -68,18 +71,28 @@ public class EditProfile extends AppCompatActivity {
         editCity = findViewById(R.id.editCity);
         editProvince = findViewById(R.id.editProvince);
         editProfilePicture = findViewById(R.id.txtChangePhoto);
+        circleImageViewProfile = findViewById(R.id.circleImageView_editImgProfile);
 
         cancel = findViewById(R.id.cancelEditButton);
         save = findViewById(R.id.editProfileButton);
         mAuth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference("users");
+        //reference = FirebaseDatabase.getInstance().getReference("users");
 
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        Uri url = firebaseUser.getPhotoUrl();
+        reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
 
-        if ( url != null ){
-            Picasso.get().load(url).into( circleImageViewProfile );
+        retrieveSeller();
+        editName.setText(name);
+        editPhone.setText(phone);
+        editAddress.setText(address);
+        editCity.setText(city);
+        editProvince.setText(province);
+
+        //Uri url = firebaseUser.getPhotoUrl();
+
+        if ( profilePicture != null ){
+            Picasso.get().load(profilePicture).into( circleImageViewProfile );
         }else {
             circleImageViewProfile.setImageResource(R.drawable.pattern);
         }
@@ -112,6 +125,29 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
+    private void retrieveSeller(){
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for ( DataSnapshot ds : snapshot.getChildren() ){
+                    name = ds.child("name").getValue(String.class);
+                    phone = ds.child("phone").getValue(String.class);
+                    address = ds.child("address").getValue(String.class);
+                    city = ds.child("city").getValue(String.class);
+                    province = ds.child("province").getValue(String.class);
+                    profilePicture = ds.child("image").getValue(String.class);
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void updateProfile(FirebaseUser firebaseUser) {
         name  = editName.getText().toString().trim();
         phone = editPhone.getText().toString().trim();
@@ -128,7 +164,7 @@ public class EditProfile extends AppCompatActivity {
             editPhone.requestFocus();
         } else{
 
-            Model model = new Model(name,phone,address,city,province, profilePicture);
+            Model model = new Model(name,phone,address,city,province,profilePicture);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
             String userId= firebaseUser.getUid();
             reference.child(userId).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -189,7 +225,7 @@ public class EditProfile extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri url = task.getResult();
-                                    updatePhotoUser( url );
+                                    //updatePhotoUser( url );
                                     profilePicture = url.toString();
                                 }
                             });

@@ -23,7 +23,6 @@ public class Model implements Serializable {
     }
 
 
-    @Exclude
     public List<SellerFruit> getFruits() {
         return fruits;
     }
