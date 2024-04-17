@@ -48,7 +48,6 @@ public class Registration extends AppCompatActivity {
 
     private EditText emailtxt,passtxt,confirmPasstxt,fullnametxt,confirmEmailtxt,addresstxt,provincetxt,citytxt, phonetxt;
     private TextView buttonLogin;
-
     private FirebaseAuth mAuth;
     private static final String TAG= "Registration";
     DatabaseReference reference;
@@ -58,7 +57,6 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
 
 
         buttonReg = findViewById(R.id.btnRegister);
