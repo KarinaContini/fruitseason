@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fruitseason.helper.Permissions;
 import com.example.fruitseason.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -64,6 +65,9 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        //validate permission
+        Permissions.validatePermissions(permissions, this, 1);
 
         editName = findViewById(R.id.editName);
         editPhone = findViewById(R.id.editPhone);
@@ -164,7 +168,7 @@ public class EditProfile extends AppCompatActivity {
             editPhone.requestFocus();
         } else{
 
-            Model model = new Model(name,phone,address,city,province,profilePicture);
+            Model model = new Model(name,phone,address,city,province);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
             String userId= firebaseUser.getUid();
             reference.child(userId).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {

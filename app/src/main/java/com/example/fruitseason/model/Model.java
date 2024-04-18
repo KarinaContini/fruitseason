@@ -10,23 +10,25 @@ import java.util.List;
 
 public class Model implements Serializable {
     private String name,phone,address, city, province;
-    @Nullable private String image;
+    private String image; //@Nullable String
     private List<SellerFruit> fruits = new ArrayList<>();
 
-    public Model(String n,String ph, String a, String c, String p, @Nullable String i){
+    public Model(String n,String ph, String a, String c, String p){
         name = n;
         phone = ph;
         address= a;
         city= c;
         province= p;
-        image = i;
     }
 
+    public Model() {
+    }
 
+    @Exclude
     public List<SellerFruit> getFruits() {
         return fruits;
     }
-
+    @Exclude
     public void setFruits(List<SellerFruit> fruits) {
         this.fruits = fruits;
     }
