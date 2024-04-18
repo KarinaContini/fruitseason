@@ -1,6 +1,7 @@
 package com.example.fruitseason.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Log.v("info", "entrei no onBind");
         Model seller = sellers.get(position);
         holder.name.setText(seller.getName());
         holder.address.setText(seller.getAddress());
@@ -49,7 +51,7 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
         } else {
             holder.image.setImageResource(R.drawable.img_placement);
         }
-
+        Log.v("info", "terminei o onBind");
     }
 
     @Override

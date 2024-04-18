@@ -142,7 +142,7 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            Model model = new Model(name,phone,address,city,province, null);
+                            Model model = new Model(name,phone,address,city,province);
                             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
                             reference = FirebaseDatabase.getInstance().getReference("users");

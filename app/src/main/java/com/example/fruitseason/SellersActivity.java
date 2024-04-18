@@ -111,6 +111,7 @@ public class SellersActivity extends AppCompatActivity {
         adapterSellers = new AdapterSellers(sellersList, this);
         sellersRecyclerView.setAdapter( adapterSellers );
 
+        Log.v("info", "configurei adapter");
         fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
 
         if(fruitSelected != null){
@@ -127,8 +128,10 @@ public class SellersActivity extends AppCompatActivity {
         //sellerQuery = sellersReference.child("fruits").orderByChild("fruitId").equalTo("001");
         //sellerQuery = sellersReference.orderByChild("fruits/fruitId").equalTo(fruitId);
 
-        retrieveSelectedSellers();
+        //retrieveSelectedSellers();
+        retrieveAllSellers();
 
+        Log.v("info", "após retrieve");
         sellersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, sellersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
 
             @Override
@@ -174,7 +177,7 @@ public class SellersActivity extends AppCompatActivity {
                     sellersList.add( ds.getValue(Model.class) );
 
                 }
-
+                Log.v("info", "vai entrar no adapter");
                 adapterSellers.notifyDataSetChanged();
             }
             @Override
@@ -191,11 +194,17 @@ public class SellersActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 sellersList.clear();
                 for ( DataSnapshot ds : snapshot.getChildren() ){
+                    Log.v("info", String.valueOf(ds.exists()));
+                    Log.v("info", String.valueOf(ds.getKey()));
                     DataSnapshot fruitsSnapshot = ds.child("fruits");
                     for (DataSnapshot fruitSnapshot : fruitsSnapshot.getChildren()) {
+                        Log.v("info", String.valueOf(fruitSnapshot.exists()));
                         String fruitId = fruitSnapshot.getKey();
                         if(fruitId.equals(fruitIdSelected)){
+                            Log.v("info", "achou uma fruta no seller");
+
                             sellersList.add( ds.getValue(Model.class) );
+                            Log.v("info", "adicionei seller");
                         }
                     }
                 }

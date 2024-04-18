@@ -36,7 +36,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/montserrat"
-        android:hint="Full name"
+        android:hint="Name"
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
