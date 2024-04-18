@@ -156,6 +156,7 @@ public class SeasonalFruits extends AppCompatActivity {
                 Fruit selectedFruit = fruits.get(position);
                 Intent intent = new Intent(SeasonalFruits.this, SellersActivity.class);
                 intent.putExtra("selectedFruit", selectedFruit);
+                intent.putExtra("parentActivity", 3);
                 startActivity(intent);
             }
 

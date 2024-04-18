@@ -10,7 +10,8 @@ import java.util.List;
 
 public class Model implements Serializable {
     private String name,phone,address, city, province;
-    private String image; //@Nullable String
+    private String priceSelectedFruit; //@Nullable String
+    private @Nullable String image;
     private List<SellerFruit> fruits = new ArrayList<>();
 
     public Model(String n,String ph, String a, String c, String p){
@@ -19,6 +20,17 @@ public class Model implements Serializable {
         address= a;
         city= c;
         province= p;
+        image = null;
+    }
+
+    @Exclude
+    public String getPriceSelectedFruit() {
+        return priceSelectedFruit;
+    }
+
+    @Exclude
+    public void setPriceSelectedFruit(String priceSelectedFruit) {
+        this.priceSelectedFruit = priceSelectedFruit;
     }
 
     public Model() {
@@ -39,9 +51,11 @@ public class Model implements Serializable {
         return address + ", "+ city + " - " + province;
 
     }
+
     public String getImage() {
         return image;
     }
+
 
     public void setImage(String image) {
         this.image = image;

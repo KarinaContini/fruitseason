@@ -41,17 +41,23 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Log.v("info", "entrei no onBind");
+
         Model seller = sellers.get(position);
         holder.name.setText(seller.getName());
         holder.address.setText(seller.getAddress());
+        if(seller.getPriceSelectedFruit() != null){
+            holder.price.setText("R$ " + seller.getPriceSelectedFruit() + "/kg");
+        } else {
+            holder.price.setText("");
+        }
+
 
         if(seller.getImage() != null){
             Picasso.get().load(seller.getImage()).into(holder.image);
         } else {
             holder.image.setImageResource(R.drawable.img_placement);
         }
-        Log.v("info", "terminei o onBind");
+
     }
 
     @Override
@@ -65,6 +71,7 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
         TextView name;
         TextView address;
         ImageView image;
+        TextView price;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -73,6 +80,7 @@ public class AdapterSellers extends RecyclerView.Adapter<AdapterSellers.MyViewHo
             name = itemView.findViewById(R.id.nameSellersList);
             image = itemView.findViewById(R.id.imageSellersList);
             address = itemView.findViewById(R.id.addressSellersList);
+            price = itemView.findViewById(R.id.txtPriceSelected);
 
         }
     }

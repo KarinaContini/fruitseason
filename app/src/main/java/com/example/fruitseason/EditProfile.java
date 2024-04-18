@@ -13,6 +13,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +35,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,6 +57,7 @@ public class EditProfile extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference reference;
     TextView editProfilePicture;
+    String userKey;
     private CircleImageView circleImageViewProfile;
 
     StorageReference storage;
@@ -60,6 +65,7 @@ public class EditProfile extends AppCompatActivity {
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +85,16 @@ public class EditProfile extends AppCompatActivity {
 
         cancel = findViewById(R.id.cancelEditButton);
         save = findViewById(R.id.editProfileButton);
+
+        storage = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         //reference = FirebaseDatabase.getInstance().getReference("users");
-
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        userKey = firebaseUser.getUid();
 
-        reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("users");
 
         retrieveSeller();
-        editName.setText(name);
-        editPhone.setText(phone);
-        editAddress.setText(address);
-        editCity.setText(city);
-        editProvince.setText(province);
-
-        //Uri url = firebaseUser.getPhotoUrl();
-
-        if ( profilePicture != null ){
-            Picasso.get().load(profilePicture).into( circleImageViewProfile );
-        }else {
-            circleImageViewProfile.setImageResource(R.drawable.pattern);
-        }
 
         editProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,29 +122,48 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
+
     }
 
-    private void retrieveSeller(){
+    private void retrieveSeller() {
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query sellerQuery = reference.orderByKey().equalTo(userKey);
+        sellerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.v("info", "datasnapshot exist");
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                for ( DataSnapshot ds : snapshot.getChildren() ){
-                    name = ds.child("name").getValue(String.class);
-                    phone = ds.child("phone").getValue(String.class);
-                    address = ds.child("address").getValue(String.class);
-                    city = ds.child("city").getValue(String.class);
-                    province = ds.child("province").getValue(String.class);
-                    profilePicture = ds.child("image").getValue(String.class);
+                        name = ds.child("name").getValue(String.class);
+                        phone = ds.child("phone").getValue(String.class);
+                        address = ds.child("address").getValue(String.class);
+                        city = ds.child("city").getValue(String.class);
+                        province = ds.child("province").getValue(String.class);
+                        profilePicture = ds.child("image").getValue(String.class);
+
+                        if ( profilePicture != null ){
+                            Picasso.get().load(profilePicture).into( circleImageViewProfile );
+                        }else {
+                            circleImageViewProfile.setImageResource(R.drawable.pattern);
+                        }
+                        editName.setText(name);
+                        editPhone.setText(phone);
+                        editAddress.setText(address);
+                        editCity.setText(city);
+                        editProvince.setText(province);
+
+                    }
                 }
-
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
     }
 
     private void updateProfile(FirebaseUser firebaseUser) {
@@ -168,18 +182,85 @@ public class EditProfile extends AppCompatActivity {
             editPhone.requestFocus();
         } else{
 
-            Model model = new Model(name,phone,address,city,province);
+            //Model model = new Model(name,phone,address,city,province);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
             String userId= firebaseUser.getUid();
-            reference.child(userId).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            reference.child(userId).child("name").setValue(name).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-                        firebaseUser.updateProfile(profileUpdates);
-                        Toast.makeText(EditProfile.this, "Update Successful!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(EditProfile.this, FruitsSale.class);
-                        startActivity(intent);
+                        reference.child(userId).child("phone").setValue(phone).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    reference.child(userId).child("address").setValue(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                reference.child(userId).child("city").setValue(city).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if(task.isSuccessful()){
+                                                            reference.child(userId).child("province").setValue(province).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if(task.isSuccessful()){
+                                                                        reference.child(userId).child("image").setValue(profilePicture).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                if(task.isSuccessful()){
+                                                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                                                                                    firebaseUser.updateProfile(profileUpdates);
+                                                                                    Toast.makeText(EditProfile.this, "Update Successful!", Toast.LENGTH_LONG).show();
+                                                                                    Intent intent = new Intent(EditProfile.this, FruitsSale.class);
+                                                                                    startActivity(intent);
+                                                                                } else{
+                                                                                    try{
+                                                                                        throw Objects.requireNonNull(task.getException());
+                                                                                    }catch(Exception e){
+                                                                                        Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        });
+
+                                                                    } else{
+                                                                        try{
+                                                                            throw Objects.requireNonNull(task.getException());
+                                                                        }catch(Exception e){
+                                                                            Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
+                                                        } else{
+                                                            try{
+                                                                throw Objects.requireNonNull(task.getException());
+                                                            }catch(Exception e){
+                                                                Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            } else{
+                                                try{
+                                                    throw Objects.requireNonNull(task.getException());
+                                                }catch(Exception e){
+                                                    Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else{
+                                    try{
+                                        throw Objects.requireNonNull(task.getException());
+                                    }catch(Exception e){
+                                        Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        });
+
                     } else{
                         try{
                             throw Objects.requireNonNull(task.getException());
@@ -244,29 +325,6 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    public void updatePhotoUser(Uri url){
-        try {
-
-            FirebaseUser user = mAuth.getCurrentUser();
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setPhotoUri( url )
-                    .build();
-
-            user.updateProfile( profile ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if( !task.isSuccessful() ){
-                        Log.d("Profile", "Error updating profile picture.");
-                    }
-                }
-            });
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -296,4 +354,9 @@ public class EditProfile extends AppCompatActivity {
         dialog.show();
 
     }
+
+
+
+
+
 }

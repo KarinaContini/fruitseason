@@ -12,7 +12,7 @@ import java.util.List;
 public class Permissions {
     public static boolean validatePermissions (String[] permissions, Activity activity, int requestCode){
 
-        if (Build.VERSION.SDK_INT >= 23 ){
+        if (Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT <= 32 ){
 
             List<String> permissionList = new ArrayList<>();
 

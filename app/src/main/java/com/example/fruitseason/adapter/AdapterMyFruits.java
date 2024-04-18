@@ -41,7 +41,7 @@ public class AdapterMyFruits extends RecyclerView.Adapter<AdapterMyFruits.MyView
         SellerFruit fruit = fruits.get(position);
 
         holder.name.setText(fruit.getName());
-        holder.price.setText(fruit.getPrice());
+        holder.price.setText("R$ "+ fruit.getPrice() +"/kg");
 
     }
 

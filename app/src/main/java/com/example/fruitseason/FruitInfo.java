@@ -42,6 +42,7 @@ public class FruitInfo extends AppCompatActivity{
     private Fruit fruitSelected;
     private SellerFruit sellerFruitSelected;
     private DatabaseReference sellerReference;
+    private DatabaseReference fruitsReference;
     private FirebaseAuth mAuth;
     private int parent;
     private String name, image, fruitId;
@@ -80,13 +81,15 @@ public class FruitInfo extends AppCompatActivity{
         } else if (parent == 2) {
             sellerFruitSelected = (SellerFruit) getIntent().getSerializableExtra("selectedFruit");
             name = sellerFruitSelected.getName();
-            //image = sellerFruitSelected.getImage();
             fruitId = sellerFruitSelected.getFruitId();
             price.setText(sellerFruitSelected.getPrice());
+            getFruitImage();
             textView.setText(name);
 
-            Picasso.get().load(image).into(imgView);
+            //image = sellerFruitSelected.getImage();
+
         }
+
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +167,31 @@ public class FruitInfo extends AppCompatActivity{
                 finish();
             }
         });
+    }
+
+    private void getFruitImage() {
+        fruitsReference = FirebaseDatabase.getInstance().getReference("fruits");
+        Query fruitQuery = fruitsReference.orderByChild("fruitId").equalTo(fruitId);
+        fruitQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                Log.v("info", "datasnapshot exist");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        image = snapshot.child("image").getValue(String.class);
+                        Picasso.get().load(image).into(imgView);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public static void openDrawer(DrawerLayout drawerLayout){

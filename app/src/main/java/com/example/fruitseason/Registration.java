@@ -144,11 +144,12 @@ public class Registration extends AppCompatActivity {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             Model model = new Model(name,phone,address,city,province);
                             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
+                            Log.v("info", "vou criar o usuario");
                             reference = FirebaseDatabase.getInstance().getReference("users");
                             reference.child(firebaseUser.getUid()).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    Log.v("info", "criei o usuario");
                                     if (task.isSuccessful()){
                                     Toast.makeText(Registration.this,
                                             "User registered! ", Toast.LENGTH_SHORT).show();

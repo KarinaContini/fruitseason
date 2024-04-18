@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/txtMyFruits"
-            android:layout_width="170dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:fontFamily="@font/montserrat"
@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/txtPriceMyFruits"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/montserrat"

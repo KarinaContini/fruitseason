@@ -31,8 +31,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SellersActivity extends AppCompatActivity {
@@ -47,8 +50,7 @@ public class SellersActivity extends AppCompatActivity {
     private String name, fruitIdSelected;
     private Query sellerQuery;
     SearchView searchFruits;
-
-
+    private int parent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,26 +114,27 @@ public class SellersActivity extends AppCompatActivity {
         sellersRecyclerView.setAdapter( adapterSellers );
 
         Log.v("info", "configurei adapter");
-        fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
 
-        if(fruitSelected != null){
-            name = fruitSelected.getName();
-            selectedFruit.setText(name);
-            fruitIdSelected = fruitSelected.getFruitId();
-        } else {
-            Toast.makeText(SellersActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-        }
-
-        Log.v("info", "antes da reference");
         sellersReference = FirebaseDatabase.getInstance().getReference("users");
-
-        //sellerQuery = sellersReference.child("fruits").orderByChild("fruitId").equalTo("001");
         //sellerQuery = sellersReference.orderByChild("fruits/fruitId").equalTo(fruitId);
 
-        //retrieveSelectedSellers();
-        retrieveAllSellers();
+        Intent intent = getIntent();
+        parent = intent.getIntExtra("parentActivity",0);
+        if (parent == 3){
+            fruitSelected = (Fruit) getIntent().getSerializableExtra("selectedFruit");
 
-        Log.v("info", "após retrieve");
+            if(fruitSelected != null){
+                name = fruitSelected.getName();
+                selectedFruit.setText(name);
+                fruitIdSelected = fruitSelected.getFruitId();
+            }
+            retrieveSelectedSellers();
+
+        } else {
+            retrieveAllSellers();
+        }
+
+
         sellersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, sellersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
 
             @Override
@@ -195,19 +198,19 @@ public class SellersActivity extends AppCompatActivity {
                 sellersList.clear();
                 for ( DataSnapshot ds : snapshot.getChildren() ){
                     Log.v("info", String.valueOf(ds.exists()));
-                    Log.v("info", String.valueOf(ds.getKey()));
                     DataSnapshot fruitsSnapshot = ds.child("fruits");
                     for (DataSnapshot fruitSnapshot : fruitsSnapshot.getChildren()) {
-                        Log.v("info", String.valueOf(fruitSnapshot.exists()));
                         String fruitId = fruitSnapshot.getKey();
                         if(fruitId.equals(fruitIdSelected)){
-                            Log.v("info", "achou uma fruta no seller");
-
-                            sellersList.add( ds.getValue(Model.class) );
-                            Log.v("info", "adicionei seller");
+                            String fruitPrice = fruitSnapshot.child("price").getValue(String.class);
+                            Log.v("info", fruitPrice);
+                            Model seller = ds.getValue(Model.class);
+                            seller.setPriceSelectedFruit(fruitPrice);
+                            sellersList.add( seller );
                         }
                     }
                 }
+                Collections.sort(sellersList, Comparator.comparing(Model::getPriceSelectedFruit));
                 adapterSellers.notifyDataSetChanged();
             }
             @Override
