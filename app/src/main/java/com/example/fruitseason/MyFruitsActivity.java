@@ -146,7 +146,7 @@ public class MyFruitsActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyFruitsActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MyFruitsActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
