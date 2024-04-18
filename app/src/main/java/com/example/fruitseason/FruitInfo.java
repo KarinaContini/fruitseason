@@ -159,7 +159,7 @@ public class FruitInfo extends AppCompatActivity{
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FruitInfo.this, LoginActivity.class);
+                Intent intent = new Intent(FruitInfo.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
